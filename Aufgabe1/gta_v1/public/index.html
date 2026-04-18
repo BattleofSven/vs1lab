@@ -31,11 +31,11 @@
                 <legend>Add a new GeoTag</legend>
                 <div class="entry_with_text">
                     <label for="latitude-input">Latitude: </label>
-                    <input id="latitude-input" type="text" placeholder="49.01379" required/>
+                    <input id="latitude-input" type="text" placeholder="49.01379" required disabled/>
                 </div>
                 <div class="entry_with_text">
                     <label for="longitude-input">Longitude: </label>
-                    <input id="longitude-input" type="text" placeholder="8.390071" required/>
+                    <input id="longitude-input" type="text" placeholder="8.390071" required disabled/>
                 </div>
                 <div class="entry_with_text">
                     <label for="name-input">Name: </label>
@@ -64,12 +64,10 @@
             <fieldset>
                 <legend>Search</legend>
                 <label for="search-input">Search term or keywords:</label>
-                <input id="search-input" type="text" placeholder="e.g. Berlin" required/>
-                <label for="search-latitude" hidden="hidden">Latitude:</label>
-                <input type="hidden" name="latitude" id="search-latitude" placeholder="e.g. 49.01379" />
-                <label for="search-longitude" hidden="hidden">Longitude:</label>
+                <input id="search-input" type="text" placeholder="e.g. Berlin"/>
+                <input type="hidden" name="latitude" id="search-latitude" placeholder="e.g. 49.01379"/>
                 <input type="hidden" name="longitude" id="search-longitude" placeholder="e.g. 8.390071"/>
-                <button>Search</button>
+                <button type="submit">Search</button>
             </fieldset>
             <!-- ... your code here ... -->
 

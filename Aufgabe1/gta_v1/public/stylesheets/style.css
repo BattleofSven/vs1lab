@@ -214,6 +214,7 @@ header {
     cursor: pointer;
     background: #EEEEEE;
     margin-bottom: 10px;
+    list-style-type: none;
 }
 
 .discovery__taglist li:last-child{
