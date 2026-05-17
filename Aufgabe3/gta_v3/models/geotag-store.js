@@ -65,11 +65,11 @@ class InMemoryGeoTagStore {
     }
 
     searchNearbyGeoTags(latitude, longitude, keyword) {
-        const nearbyGeoTags = this.getNearbyGeoTags(location);
+        const nearbyGeoTags = this.getNearbyGeoTags(latitude, longitude);
         const lowerCaseKeyword = keyword.toLowerCase();
         return nearbyGeoTags.filter(geoTag => {
-            const nameMatch = geoTag.name.toLowerCase.includes(lowerCaseKeyword);
-            const hashtagMatch = geoTag.hashtag.toLowerCase.includes(lowerCaseKeyword);
+            const nameMatch = geoTag.name.toLowerCase().includes(lowerCaseKeyword);
+            const hashtagMatch = geoTag.hashtag.toLowerCase().includes(lowerCaseKeyword);
             return nameMatch || hashtagMatch;
         });
     }
