@@ -10,7 +10,6 @@
 console.log("The geoTagging script is going to start...");
 
 
-
 /**
  * TODO: 'updateLocation'
  * A function to retrieve the current location and update the page.
@@ -36,14 +35,7 @@ function updateLocation() {
         }
     };
 
-    if (latitudeInput.value && longitudeInput.value) {
-        return;
-    }
-
-    if (latitudeInput.value && longitudeInput.value && latitudeInput.value !== "0") {
-        setupMap(latitudeInput.value, longitudeInput.value);
-    }
-    else {
+    if (!(latitudeInput.value && longitudeInput.value)) {
         LocationHelper.findLocation((location) => {
             latitudeInput.value = location.latitude;
             longitudeInput.value = location.longitude;
