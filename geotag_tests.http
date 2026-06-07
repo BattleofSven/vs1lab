@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:3000/api/geotags
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "latitude": 48.8584,
+  "longitude": 2.2945,
+  "name": "Eiffelturm",
+  "hashtag": "#paris"
+}
+
+> {%
+    client.global.set("createdUuid", response.body.uuid);
+%}
+###
+GET {{baseUrl}}?latitude=48.8584&longitude=2.2945
+
+###
+GET {{baseUrl}}?latitude=48.8584&longitude=2.2945&searchTerm=Eiffelturm
+
+###
+GET {{baseUrl}}/{{createdUuid}}
+###
+PUT {{baseUrl}}/{{createdUuid}}
+Content-Type: application/json
+
+{
+  "latitude": 48.8584,
+  "longitude": 2.2945,
+  "name": "Eiffelturm2",
+  "hashtag": "#paris2026"
+}
+###
+DELETE {{baseUrl}}/{{createdUuid}}
+###
+GET {{baseUrl}}/{{createdUuid}}
+###
