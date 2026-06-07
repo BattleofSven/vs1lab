@@ -51,7 +51,7 @@ class InMemoryGeoTagStore {
     }
 
     removeGeoTag(name) {
-        this.#geoTags.fill(geoTag => geoTag.name !== name);
+        this.#geoTags.filter(geoTag => geoTag.name !== name);
     }
 
     getNearbyGeoTags(latitude, longitude) {

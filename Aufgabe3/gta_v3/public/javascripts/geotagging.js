@@ -37,13 +37,16 @@ function updateLocation() {
 
     if (!(latitudeInput.value && longitudeInput.value)) {
         LocationHelper.findLocation((location) => {
-            latitudeInput.value = location.latitude;
-            longitudeInput.value = location.longitude;
+            document.getElementById('latitude-input').value = location.latitude;
+            document.getElementById('longitude-input').value = location.longitude;
+
             document.getElementById('search-latitude').value = location.latitude;
             document.getElementById('search-longitude').value = location.longitude;
 
             setupMap(location.latitude, location.longitude);
         });
+    } else {
+        setupMap(latitudeInput.value, longitudeInput.value)
     }
 }
 

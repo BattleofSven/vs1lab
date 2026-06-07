@@ -40,20 +40,20 @@
                 <legend>Add a new GeoTag</legend>
                 <div class="entry_with_text">
                     <label for="latitude-input">Latitude: </label>
-                    <input id="latitude-input" type="text" placeholder="49.01379" value="<%= latitude %>" required disabled/>
+                    <input id="latitude-input" name="latitude" type="text" placeholder="49.01379" value="<%= latitude %>" required readonly/>
                 </div>
                 <div class="entry_with_text">
                     <label for="longitude-input">Longitude: </label>
-                    <input id="longitude-input" type="text" placeholder="8.390071" value="<%= longitude %>" required disabled/>
+                    <input id="longitude-input" name="longitude" type="text" placeholder="8.390071" value="<%= longitude %>" required readonly/>
                 </div>
                 <div class="entry_with_text">
                     <label for="name-input">Name: </label>
-                    <input id="name-input" type="text" placeholder="e.g. Central Berlin" maxlength="10" required/>
+                    <input id="name-input" name="name" type="text" placeholder="e.g. Central Berlin" maxlength="10" required/>
 
                 </div>
                 <div class="entry_with_text">
                     <label for="hashtag-input">Hashtag: </label>
-                    <input id="hashtag-input" type="text" placeholder="e.g. #ber" maxlength="10" pattern="#[a-zA-Z]*[0-9]*"/>
+                    <input id="hashtag-input" name="hashtag" type="text" placeholder="e.g. #ber" maxlength="10" pattern="#[a-zA-Z]*[0-9]*"/>
                 </div>
                 <Button type="submit" style="width: 100%">AddTag</Button>
             </fieldset>
@@ -73,7 +73,7 @@
             <fieldset>
                 <legend>Search</legend>
                 <label for="search-input">Search term or keywords:</label>
-                <input id="search-input" type="text" placeholder="e.g. Berlin"/>
+                <input id="search-input" name="searchTerm" type="text" placeholder="e.g. Berlin"/>
                 <input type="hidden" name="latitude" id="search-latitude" value="<%= latitude %>" placeholder="e.g. 49.01379"/>
                 <input type="hidden" name="longitude" id="search-longitude" value="<%= longitude %>" placeholder="e.g. 8.390071"/>
                 <button type="submit">Search</button>
