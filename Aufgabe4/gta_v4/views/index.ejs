@@ -90,6 +90,11 @@
                         <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
                     <% }); %>
                 </ul>
+                <div id="pagination">
+                    <button id="previousButton"><</button>
+                    <span id="currentPage">Seite 1</span>
+                    <button id="nextButton">></button>
+                </div>
             </div>
 
             <div id="map" data-tags='<%- JSON.stringify(taglist) %>' class="discovery__map">

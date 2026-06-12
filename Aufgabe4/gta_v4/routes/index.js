@@ -98,19 +98,47 @@ router.post('/discovery', (req, res) => {
 // TODO: ... your code here ...
 
 router.get('/api/geotags', (req, res) => {
-    const {latitude, longitude, searchTerm} = req.query;
+    const {latitude, longitude, searchTerm, currentPage} = req.query;
 
     const lat = parseFloat(latitude);
     const lon = parseFloat(longitude);
 
-    let results;
+    let allPossibleGeoTags;
     if (searchTerm) {
-        results = geoTagStore.searchNearbyGeoTags(lat, lon, searchTerm);
+        allPossibleGeoTags = geoTagStore.searchNearbyGeoTags(lat, lon, searchTerm);
     } else {
-        results = geoTagStore.getNearbyGeoTags(lat, lon);
+        allPossibleGeoTags = geoTagStore.getNearbyGeoTags(lat, lon);
     }
-    res.json(results);
+    const tagsWithDistances = allPossibleGeoTags.map(tag => {
+        const distance = getDistance(latitude, longitude, tag.latitude, tag.longitude);
+        return { ...tag, distance: distance };
+    })
+
+    tagsWithDistances.sort((a, b) => a.distance - b.distance);
+
+    const totalItems = allPossibleGeoTags.length;
+    const totalPages = Math.ceil(totalItems/5);
+
+    const startIndex = (currentPage - 1) * 5;
+    const endIndex = startIndex + 5;
+
+    const result = tagsWithDistances.slice(startIndex, endIndex);
+
+    res.json({
+        geoTags: result,
+        totalPages: totalPages,
+        totalItems: totalItems,
+        currentPage: currentPage
+    });
 })
+
+// NOT the exact distance just a function to find out what's closer
+function getDistance(lat1, lon1, lat2, lon2) {
+    const x = (lon2 - lon1) * 71;
+    const y = (lat2 - lat1) * 111;
+
+    return x * x + y * y;
+}
 
 router.post('/api/geotags', (req, res) => {
     const {latitude, longitude, name, hashtag} = req.body;

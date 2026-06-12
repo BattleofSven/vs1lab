@@ -102,19 +102,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-function updateDiscoveryWidget(geoTagsArray) {
+let currentPage = 1;
+let totalPages = 1;
+let globalGeoTags = []
+
+const discoveryList = document.getElementById('discoveryResults');
+const paginationContainer = document.getElementById('pagination');
+const previousButton = document.getElementById('previousButton');
+const currentPageText = document.getElementById('currentPage');
+const nextButton = document.getElementById('nextButton');
+
+function updateDiscoveryWidget(geoTagsArray, serverTotalPages) {
     updateLocation(geoTagsArray);
-    const discoveryList = document.getElementById('discoveryResults');
+
+    totalPages = serverTotalPages;
+
     if (discoveryList) {
         discoveryList.innerHTML = '';
+
+        if (totalPages > 1) {
+            paginationContainer.style.display = 'flex';
+        } else {
+            paginationContainer.style.display = 'none';
+        }
 
         geoTagsArray.forEach(tag => {
             const li = document.createElement('li');
             li.textContent = `${tag.name} ( ${tag.latitude},${tag.longitude}) ${tag.hashtag} `;
             discoveryList.appendChild(li);
         });
+
+        currentPageText.textContent = `Seite ${currentPage} von ${totalPages}`;
+        previousButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage >= serverTotalPages;
+
     }
 }
+
+
+
+previousButton.addEventListener('click', (event) => {
+    if (currentPage > 1){
+        currentPage--;
+        triggerDiscoverySearch();
+    }
+});
+
+nextButton.addEventListener('click', (event) => {
+    if (currentPage < totalPages) {
+        currentPage++;
+        triggerDiscoverySearch();
+    }
+})
 
 function triggerDiscoverySearch() {
     const latitude = parseFloat(document.getElementById('latitude-input').value);
@@ -124,14 +163,18 @@ function triggerDiscoverySearch() {
     const params = new URLSearchParams({
         latitude: latitude,
         longitude: longitude,
-        searchTerm: searchTerm
+        searchTerm: searchTerm,
+        currentPage: currentPage
     });
 
     fetch(`/api/geotags?${params.toString()}`, {
         method: 'GET',
     })
         .then(response => response.json())
-        .then(geoTags => {
-            updateDiscoveryWidget(geoTags);
+        .then(data => {
+            globalGeoTags = data.geoTags;
+            currentPage = data.currentPage;
+
+            updateDiscoveryWidget(data.geoTags, data.totalPages);
         })
 }

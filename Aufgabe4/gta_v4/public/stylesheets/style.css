@@ -206,6 +206,9 @@ header {
     gap: 10px;
 }
 
+#discoveryResults {
+    min-height: 250px
+}
 
 .discovery__taglist li {
     border: 1px solid var(--gray-color);
@@ -217,8 +220,13 @@ header {
     list-style-type: none;
 }
 
-.discovery__taglist li:last-child{
-    margin-bottom: 0;
+
+#pagination{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 5px;
 }
 
 .discovery__map img {
@@ -263,6 +271,9 @@ header {
     }
   .discovery__wrapper {
       grid-template-columns: 100%;
+  }
+  #discoveryResults {
+      min-height: 0
   }
 
 }
